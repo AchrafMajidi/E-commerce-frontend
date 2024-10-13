@@ -2,7 +2,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { CiHeart, CiSearch, CiUser, CiCamera, CiCart } from "react-icons/ci";
+import { CiHeart, CiSearch, CiUser, CiCamera, CiShoppingCart } from "react-icons/ci";
 
 const Navbar = () => {
   return (
@@ -55,10 +55,8 @@ const Navbar = () => {
 
           {/* Shopping Cart */}
           <Link href="/cart" className="relative">
-            <span className="w-8 h-8 text-gray-600 cursor-pointer">🛒</span>
-            <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-              3
-            </span>
+            <CiShoppingCart size={24} className="text-black" />
+            
           </Link>
         </div>
       </div>
