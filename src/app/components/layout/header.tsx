@@ -2,16 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Search, User, Heart, ShoppingCart, Camera, ArrowLeft, Mic, Globe, Menu,
+  Search, User, Heart, ShoppingCart, Camera, ArrowLeft, Globe, Menu, Check,
 } from "lucide-react";
 import { AiOutlineClose } from "react-icons/ai";
-import { Check } from "react-feather"; // Pour l’icône de checkmark
 
 // Déclaration des types des props
 interface SearchBarProps {
   searchValue: string;
   setSearchValue: (value: string) => void;
-  placeholder: string; // Définit le type string pour le placeholder
+  placeholder: string;
 }
 
 function SearchBar({ searchValue, setSearchValue, placeholder }: SearchBarProps) {
@@ -49,6 +48,7 @@ export default function Header() {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("Français");
+  const [cartCount, setCartCount] = useState(3); // Nombre d'articles dans le panier
 
   const placeholders = [
     "Cherchez-vous quelque chose?...", 
@@ -68,14 +68,12 @@ export default function Header() {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 640) {
-        setIsSearchOpen(false); // Réinitialiser isSearchOpen sur les écrans plus grands
+        setIsSearchOpen(false);
       }
     };
 
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleCategoriesMenu = () => {
@@ -88,7 +86,7 @@ export default function Header() {
 
   const handleLanguageSelect = (lang: string) => {
     setSelectedLanguage(lang);
-    setIsLanguageOpen(false); // Fermer le menu après sélection
+    setIsLanguageOpen(false);
   };
 
   return (
@@ -101,7 +99,6 @@ export default function Header() {
             </div>
           )}
 
-          {/* Barre de recherche pour les écrans plus grands */}
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
             <SearchBar
               searchValue={searchValue}
@@ -110,7 +107,6 @@ export default function Header() {
             />
           </div>
 
-          {/* Icônes pour les écrans plus grands */}
           <div className="hidden sm:flex items-center">
             <button className="bg-transparent border-none p-2">
               <User size={25} />
@@ -118,12 +114,23 @@ export default function Header() {
             <button className="bg-transparent border-none p-2">
               <Heart size={25} />
             </button>
-            <button className="bg-transparent border-none p-2">
-              <ShoppingCart size={25} />
-            </button>
+
+            <div className="relative p-2">
+              <button className="bg-transparent border-none">
+                <ShoppingCart size={25} />
+              </button>
+
+              {/* Badge du panier */}
+              {cartCount > 0 && (
+                <span 
+                  className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"
+                >
+                  {cartCount}
+                </span>
+              )}
+            </div>
           </div>
 
-          {/* Menu et recherche pour les petits écrans */}
           <div className="flex items-center sm:hidden">
             <div className="flex items-center w-full">
               {isSearchOpen ? (
@@ -148,9 +155,19 @@ export default function Header() {
                   <button className="p-2">
                     <Heart size={25} />
                   </button>
-                  <button className="p-2">
-                    <ShoppingCart size={25} />
-                  </button>
+
+                  <div className="relative p-2">
+                    <button className="bg-transparent border-none">
+                      <ShoppingCart size={25} />
+                    </button>
+                    {cartCount > 0 && (
+                      <span 
+                        className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"
+                      >
+                        {cartCount}
+                      </span>
+                    )}
+                  </div>
                 </>
               )}
             </div>
@@ -160,11 +177,10 @@ export default function Header() {
 
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex justify-between items-center">
-          {/* Menu Catégories */}
           <div className="relative">
             <button
               onClick={toggleCategoriesMenu}
-              className="bg-gradient-to-r from-red-500 to-pink-300 text-white p-2 rounded-lg border-none hover:from-purple-600 hover:to-pink-600 flex items-center"
+              className="bg-gradient-to-r from-red-500 to-pink-500 text-white p-2 rounded-lg border-none hover:from-purple-600 hover:to-pink-600 flex items-center"
             >
               <Menu className="mr-2 h-4 w-4" />
               Catégories
@@ -179,11 +195,10 @@ export default function Header() {
             )}
           </div>
 
-          {/* Menu Langue */}
           <div className="relative">
             <button
               onClick={toggleLanguageMenu}
-              className="bg-gradient-to-r from-teal-400 to-blue-500 text-white p-2 rounded-lg border-none hover:from-teal-500 hover:to-blue-600 flex items-center"
+              className="bg-gradient-to-r from-red-500 to-pink-500 text-white p-2 rounded-lg border-none hover:from-teal-500 hover:to-blue-600 flex items-center"
             >
               <Globe className="mr-2 h-4 w-4" />
               Langue
