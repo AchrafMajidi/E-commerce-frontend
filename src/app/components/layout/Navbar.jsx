@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { CiHeart, CiSearch, CiUser, CiCamera, CiShoppingCart } from "react-icons/ci";
+import { Search, User, Heart, ShoppingCart, Camera, ArrowLeft, Mic, Globe, Menu } from "lucide-react"
 import { AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
@@ -38,10 +38,10 @@ const Navbar = () => {
             className="w-full px-4 py-2 pr-24 pl-8 border border-black rounded-full focus:outline-none focus:ring-2 focus:ring-black"
           />
           <button className="absolute right-14 top-0 bottom-0 px-4 text-black rounded-lg focus:outline-none">
-            <CiCamera size={23} />
+            <Camera size={23} />
           </button>
           <button className="absolute right-0 top-0 bottom-0 px-5 bg-black text-white rounded-full focus:outline-none">
-            <CiSearch size={23} />
+            <Search size={23} />
           </button>
           {searchValue && (
             <button
@@ -56,13 +56,13 @@ const Navbar = () => {
         {/* Icônes pour desktop */}
         <div className="hidden md:flex items-center space-x-6">
           <Link href="/profile" className="relative">
-            <CiUser size={24} className="text-black" />
+            <User size={24} className="text-black" />
           </Link>
           <Link href="/favorites" className="relative">
-            <CiHeart size={24} className="text-black" />
+            <Heart size={24} className="text-black" />
           </Link>
           <Link href="/cart" className="relative">
-            <CiShoppingCart size={24} className="text-black" />
+            <ShoppingCart size={24} className="text-black" />
           </Link>
         </div>
       </div>
@@ -79,11 +79,11 @@ const Navbar = () => {
               className="w-full px-4 py-2 pr-20 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
             />
             <button className="absolute right-14 top-0 bottom-0 px-4 text-black rounded-lg focus:outline-none">
-              <CiCamera size={23} />
+              <Camera size={23} />
             </button>
             <button className="absolute right-0 top-0 bottom-0 px-5 bg-black text-white rounded-full focus:outline-none"
             onClick={handleSearchClick}>
-              <CiSearch size={23} />
+              <Search size={23} />
             </button>
             {searchValue && (
               <button
@@ -97,19 +97,19 @@ const Navbar = () => {
         ) : (
           <div className="flex items-center space-x-6 ">
             <Link href="/favorites">
-              <CiHeart size={24} className="text-black" />
+              <Heart size={24} className="text-black" />
             </Link>
             <Link href="/cart">
-              <CiShoppingCart size={24} className="text-black" />
+              <ShoppingCart size={24} className="text-black" />
             </Link>
             <Link href="/profile">
-              <CiUser size={24} className="text-black" />
+              <User size={24} className="text-black" />
             </Link>
             <button 
               onClick={handleSearchClick} 
               className="px-5 bg-black text-white rounded-full focus:outline-none"
             >
-              <CiSearch size={23} />
+              <Search size={23} />
             </button>
           </div>
         )}
