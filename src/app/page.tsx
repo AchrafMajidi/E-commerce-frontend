@@ -8,10 +8,6 @@ import ProductCard from "./components/product/ProductCard";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      
-      <ProductCard/>
-      
-    </div>
+    <Header/>
   );
 }

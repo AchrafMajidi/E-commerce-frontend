@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Search, User, Heart, ShoppingCart, Camera, ArrowLeft, Globe, Menu, Check,
+  Search, User, Heart, ShoppingCart, Camera, ArrowLeft, Globe, Menu, Check, ChevronDown,
 } from "lucide-react";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -15,13 +15,13 @@ interface SearchBarProps {
 
 function SearchBar({ searchValue, setSearchValue, placeholder }: SearchBarProps) {
   return (
-    <div className="relative w-[400px]">
+    <div className="relative w-[400px] sm:w-2/3">
       <input
         type="text"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-4 py-2 pr-24 pl-8 border border-black rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+        className="w-full py-2 pr-24 pl-9 border border-black rounded-full focus:outline-none focus:ring-2 focus:ring-black"
       />
       <button className="absolute right-14 top-0 bottom-0 px-4 text-black rounded-lg focus:outline-none">
         <Camera size={23} />
@@ -57,23 +57,24 @@ export default function Header() {
     "Vêtements pour femmes..."
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
-    }, 3000);
+  const languages = [
+    { name: "Français", flag: "/Flag_of_France.png" },
+    { name: "العربية", flag: "/Flag_of_Saudi_Arabia.png" },
+  ];
 
-    return () => clearInterval(interval);
-  }, [placeholders.length]);
 
-  useEffect(() => {
+   // Fonction pour surveiller les changements de la taille de la fenêtre
+   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 640) {
-        setIsSearchOpen(false);
+        setIsSearchOpen(false); // Réinitialise l'état pour afficher le logo sur les grands écrans
       }
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const toggleCategoriesMenu = () => {
@@ -86,7 +87,7 @@ export default function Header() {
 
   const handleLanguageSelect = (lang: string) => {
     setSelectedLanguage(lang);
-    setIsLanguageOpen(false);
+    setIsLanguageOpen(false); // Fermer le menu après sélection
   };
 
   return (
@@ -107,7 +108,7 @@ export default function Header() {
             />
           </div>
 
-          <div className="hidden sm:flex items-center">
+          <div className="hidden sm:flex  items-center">
             <button className="bg-transparent border-none p-2">
               <User size={25} />
             </button>
@@ -196,23 +197,28 @@ export default function Header() {
           </div>
 
           <div className="relative">
-            <button
-              onClick={toggleLanguageMenu}
-              className="bg-gradient-to-r from-red-500 to-pink-500 text-white p-2 rounded-lg border-none hover:from-teal-500 hover:to-blue-600 flex items-center"
-            >
-              <Globe className="mr-2 h-4 w-4" />
-              Langue
-            </button>
+          <button
+            onClick={toggleLanguageMenu}
+            className="text-black p-2 rounded-lg border border-gray-300 hover:border-black flex items-center"
+          >
+            <img
+              src={languages.find((lang) => lang.name === selectedLanguage)?.flag}
+              alt="flag"
+              className="mr-2 h-4 w-4"
+            />
+            {selectedLanguage}
+            <ChevronDown className="ml-2 h-4 w-4" />
+          </button>
             {isLanguageOpen && (
-              <ul className="absolute mt-2 right-0 w-48 bg-white shadow-lg rounded-lg py-1">
-                {["Français", "Deutsch"].map((lang) => (
+              <ul className="absolute mt-2 right-0 w-[140px] bg-white shadow-lg rounded-lg py-1">
+                {languages.map((lang) => (
                   <li
-                    key={lang}
-                    onClick={() => handleLanguageSelect(lang)}
-                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex justify-between items-center"
+                    key={lang.name}
+                    onClick={() => handleLanguageSelect(lang.name)}
+                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center"
                   >
-                    {lang}
-                    {selectedLanguage === lang && <Check className="h-4 w-4 text-teal-500" />}
+                    <img src={lang.flag} alt={`${lang.name} flag`} className="mr-4 h-4 w-4" />
+                    {lang.name}
                   </li>
                 ))}
               </ul>
