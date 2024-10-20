@@ -22,6 +22,14 @@
       "price": 200,
       "rating": 5.0,
       "availableItems": 8
-    }
+    },
+    {
+        "id": 4,
+        "imageUrl": "/YouKnowHoodie_FrontBlack_1.webp",
+        "title": "Hoodie noir",
+        "price": 200,
+        "rating": 2.0,
+        "availableItems": 8
+      }
   ]
   
