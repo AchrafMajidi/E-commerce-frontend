@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "imageUrl": "/WhatsApp Image 2024-10-18 à 23.15.03_6cec2a0e.jpg",
+      "title": "MIMI",
+      "price": 100,
+      "rating": 4.5,
+      "availableItems": 10
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images.jpg",
+      "title": "Huile noisette",
+      "price": 150,
+      "rating": 4.0,
+      "availableItems": 5
+    },
+    {
+      "id": 3,
+      "imageUrl": "/le-miel-un-produit-naturel-aux-multiples-usages-culinaires.jpeg",
+      "title": "Miel naturel",
+      "price": 200,
+      "rating": 5.0,
+      "availableItems": 8
+    }
+  ]
+  

@@ -63,6 +63,16 @@ export default function Header() {
   ];
 
 
+  // Changement de placeholder toutes les 5 secondes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
+    }, 5000); // 5000ms = 5 secondes
+
+    return () => clearInterval(interval); // Nettoyage de l'intervalle
+  }, [placeholders.length]);
+
+
    // Fonction pour surveiller les changements de la taille de la fenêtre
    useEffect(() => {
     const handleResize = () => {
@@ -181,10 +191,10 @@ export default function Header() {
           <div className="relative">
             <button
               onClick={toggleCategoriesMenu}
-              className="bg-gradient-to-r from-red-500 to-pink-500 text-white p-2 rounded-lg border-none hover:from-purple-600 hover:to-pink-600 flex items-center"
+              className="bg-gray-600 text-white p-2 py-3 rounded-full border-none hover:bg-gray-700 flex items-center px-8 "
             >
-              <Menu className="mr-2 h-4 w-4" />
-              Catégories
+              <Menu className="mr-2 h-5 w-5" />
+              Toutes les catégories
             </button>
             {isCategoriesOpen && (
               <ul className="absolute mt-2 w-48 bg-white shadow-lg rounded-lg py-1">
